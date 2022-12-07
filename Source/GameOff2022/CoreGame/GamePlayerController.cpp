@@ -121,7 +121,7 @@ void AGamePlayerController::PauseGame()
 void AGamePlayerController::StopLevel()
 {
 	this->bLevelStopped = true;
-
+	
 	GetPawn()->FindComponentByClass<UCameraComponent>()->bUsePawnControlRotation = false;
 	GetPawn()->DisableInput(this);
 
