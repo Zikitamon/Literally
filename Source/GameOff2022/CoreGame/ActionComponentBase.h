@@ -48,6 +48,9 @@ protected:
 	UPROPERTY()
 	UHandManagerComponent* OwnerHandManager;
 
+	UPROPERTY(BlueprintReadWrite)
+	USoundBase* PickUpSound;
+
 private:
 	
 	void InputPrimaryActionPressed() {this->PrimaryAction(EInputEvent::IE_Pressed); }

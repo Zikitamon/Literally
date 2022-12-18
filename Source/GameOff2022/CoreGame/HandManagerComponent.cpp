@@ -6,6 +6,7 @@
 
 
 #define PRINTSTRING(InString) GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Green, TEXT(InString)); UE_LOG(LogTemp, Warning, TEXT(InString));
+#undef PRINTSTRING
 
 UHandManagerComponent::UHandManagerComponent()
 {
@@ -55,6 +56,9 @@ void UHandManagerComponent::RightPunch()
 	GetWorld()->GetTimerManager().SetTimer(PunchCooldownTimerHandle, FTimerDelegate::CreateLambda([this](){this->bRightPunchOnCooldown = false;}), this->PunchCooldownTime, false);
 	
 	this->OnPunch.Broadcast(EHS_Right);
+	
+	if (this->PunchSound)
+		GetOwner()->GetGameInstance()->GetPrimaryPlayerController()->ClientPlaySound(this->PunchSound);
 }
 
 void UHandManagerComponent::LeftPunch()
@@ -82,4 +86,7 @@ void UHandManagerComponent::LeftPunch()
 	GetWorld()->GetTimerManager().SetTimer(PunchCooldownTimerHandle, FTimerDelegate::CreateLambda([this](){this->bLeftPunchOnCooldown = false;}), this->PunchCooldownTime, false);
 	
 	this->OnPunch.Broadcast(EHS_Left);
+	
+	if (this->PunchSound)
+		GetOwner()->GetGameInstance()->GetPrimaryPlayerController()->ClientPlaySound(this->PunchSound);
 }

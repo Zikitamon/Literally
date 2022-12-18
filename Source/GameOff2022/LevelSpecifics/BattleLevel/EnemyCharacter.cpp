@@ -65,6 +65,9 @@ float AEnemyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damage
 {
 	this->Health -= DamageAmount;
 
+	if (this->TakeDamageSound)
+		GetWorld()->GetFirstPlayerController()->ClientPlaySoundAtLocation(this->TakeDamageSound, GetActorLocation());
+	
 	if (this->Health <= 0.0f)
 	{
 		this->bDisabled = true;
@@ -109,6 +112,9 @@ void AEnemyCharacter::Attack()
 {
 	if (this->bDisabled)
 		return;
+
+	if (this->PunchSound)
+		GetWorld()->GetFirstPlayerController()->ClientPlaySoundAtLocation(this->PunchSound, GetActorLocation());
 	
 	this->bCurrentlyAttacking = false;
 	this->bWasMovingInLastTick = false;

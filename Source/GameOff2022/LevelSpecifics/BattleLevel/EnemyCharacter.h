@@ -36,6 +36,12 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath();
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* TakeDamageSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* PunchSound;
 	
 private:
 

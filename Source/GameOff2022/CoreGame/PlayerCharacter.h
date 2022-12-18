@@ -38,7 +38,7 @@ protected:
 	void InputJump();
 	
 	UFUNCTION(BlueprintCallable)
-	void AddActionComponent(TSubclassOf<UActionComponentBase> ActionComponentClass);
+	UActionComponentBase* AddActionComponent(TSubclassOf<UActionComponentBase> ActionComponentClass);
 	
 	UPROPERTY(VisibleAnywhere)
 	UHandManagerComponent* HandManager;

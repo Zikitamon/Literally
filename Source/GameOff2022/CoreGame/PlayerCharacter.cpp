@@ -85,13 +85,15 @@ void APlayerCharacter::InputJump()
 
 
 
-void APlayerCharacter::AddActionComponent(TSubclassOf<UActionComponentBase> ActionComponentClass)
+UActionComponentBase* APlayerCharacter::AddActionComponent(TSubclassOf<UActionComponentBase> ActionComponentClass)
 {
 	if (!IsValid(ActionComponentClass))
-		return;
+		return nullptr;
 	
 	this->ActionComponent = NewObject<UActionComponentBase>(this, ActionComponentClass);
 	this->ActionComponent->CreationMethod = EComponentCreationMethod::Instance;
 	this->ActionComponent->RegisterComponent();
 	AddInstanceComponent(this->ActionComponent);
+
+	return this->ActionComponent;
 }

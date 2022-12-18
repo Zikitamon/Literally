@@ -2,6 +2,8 @@
 
 #include "ActionComponentBase.h"
 #include "HandManagerComponent.h"
+#include "Components/AudioComponent.h"
+#include "GameFramework/GameUserSettings.h"
 #include "GameOff2022/Utility/InterpFollower.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -69,6 +71,19 @@ AActor* UActionComponentBase::GrabNearestGrabbable(EHandSide HandSide)
 	}
 	
 	ClosestGrabbable->FindComponentByClass<UInterpFollower>()->StartFollowing(GetOwner()->FindComponentByClass<USkeletalMeshComponent>(), HandSide, this);
+
+	if (this->PickUpSound)
+	{
+		TArray<UActorComponent*> ClosestGrabbableAudioComponents = ClosestGrabbable->GetComponentsByTag(UActorComponent::StaticClass(), TEXT("TEMP_PickUpSoundComponent"));
+		for (UActorComponent* Current : ClosestGrabbableAudioComponents)
+		{
+			Current->DestroyComponent();
+		}
+		
+		UAudioComponent* NewlySpawnedSound = UGameplayStatics::SpawnSoundAttached(this->PickUpSound, ClosestGrabbable->GetRootComponent());
+		NewlySpawnedSound->ComponentTags.Add(TEXT("TEMP_PickUpSoundComponent"));
+		
+	}
 
 	if (HandSide == EHS_Right)
 	{

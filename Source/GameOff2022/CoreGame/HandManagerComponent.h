@@ -46,6 +46,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	float PunchCooldownTime = 2.0f;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* PunchSound;
 	
 private:
 
